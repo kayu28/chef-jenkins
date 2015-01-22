@@ -18,6 +18,7 @@
 default['jenkins']['jenkins_home'] = '/var/lib/jenkins'
 default['jenkins']['rpm'] = "jenkins-1.589-1.1.noarch.rpm"
 default['jenkins']['rpm_url'] = "http://pkg.jenkins-ci.org/redhat/jenkins-1.589-1.1.noarch.rpm"
+default['jenkins']['http_port'] = '8080'
 default['jenkins']['plugins'] = [
   "git",
   "pmd",
@@ -31,5 +32,8 @@ default['jenkins']['plugins'] = [
   "build-flow-plugin",
   "monitoring",
   "deploy",
-  "saferestart"
+  "saferestart",
+  "disk-usage",
+  "discard-old-build",
+  "redmine"
 ]

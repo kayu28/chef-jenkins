@@ -39,6 +39,9 @@ template "jenkins" do
   owner "root"
   group "root"
   mode "0644"
+  variables({
+    :http_port => node['jenkins']['http_port']
+  })
 end
 
 service "jenkins" do
@@ -49,7 +52,7 @@ service 'iptables' do
     action [:disable, :stop]
 end
 
-JENKINS_URL = "http://localhost:8080/jenkins"
+JENKINS_URL = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins"
 
 script "install-jenkins-cli" do
   interpreter "bash"
@@ -91,7 +94,7 @@ node['jenkins']['plugins'].each do |plugin_name|
     user "root"
     command "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} install-plugin " + plugin_name
     action :run
-    not_if "/usr/local/bin/jenkins list-plugins | awk '{print $1}' | grep ^#{plugin_name}$"
+    not_if "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} list-plugins | awk '{print $1}' | grep ^#{plugin_name}$"
     notifies :run, "execute[jenkins-safe-restart]"
   end
 end
