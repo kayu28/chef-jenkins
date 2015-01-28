@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jenkins
-# Attributes:: default
+# Recipe:: update-jenkins-updatecenter
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# default attributes
-default['jenkins']['jenkins_home'] = '/var/lib/jenkins'
-default['jenkins']['rpm'] = "jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['rpm_url'] = "http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['http_port'] = '8080'
-default['jenkins']['java_name'] = 'java'
-default['jenkins']['java_home'] = '/usr/lib/jvm/java'
-default['jenkins']['maven_name'] = 'maven'
-default['jenkins']['maven_home'] = '/opt/maven'
-default['jenkins']['plugins'] = [
-  "git"
-]
+directory "/var/lib/jenkins/updates" do
+  owner "jenkins"
+  group "jenkins"
+  mode "0755"
+  action :create
+end
+
+script "update-jenkins-updatecenter" do
+  interpreter "bash"
+  user "jenkins"
+  cwd "/tmp"
+  code <<-EOH
+    curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
+  EOH
+  not_if "test -e /var/lib/jenkins/updates/default.json"
+end
+

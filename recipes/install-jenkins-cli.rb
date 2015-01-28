@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jenkins
-# Attributes:: default
+# Recipe:: install-jenkins-cli
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# default attributes
-default['jenkins']['jenkins_home'] = '/var/lib/jenkins'
-default['jenkins']['rpm'] = "jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['rpm_url'] = "http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['http_port'] = '8080'
-default['jenkins']['java_name'] = 'java'
-default['jenkins']['java_home'] = '/usr/lib/jvm/java'
-default['jenkins']['maven_name'] = 'maven'
-default['jenkins']['maven_home'] = '/opt/maven'
-default['jenkins']['plugins'] = [
-  "git"
-]
+JENKINS_URL = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins"
+
+script "install-jenkins-cli" do
+  interpreter "bash"
+  user "root"
+  cwd "/tmp"
+  code <<-EOH
+    sleep 5
+    http_response_code=503
+    while [ $http_response_code -ne 200 ]
+    do
+      http_response_code=`curl -LI #{JENKINS_URL}/jnlpJars/jenkins-cli.jar -o /dev/null -w '%{http_code}' -s`
+      echo $http_response_code
+      sleep 5
+    done
+    wget -t 5 --waitretry 5 -O /tmp/jenkins-cli.jar #{JENKINS_URL}/jnlpJars/jenkins-cli.jar
+  EOH
+end
+
