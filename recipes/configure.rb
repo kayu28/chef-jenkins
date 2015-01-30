@@ -17,8 +17,8 @@
 template "jenkins" do
   path "/etc/sysconfig/jenkins"
   source "jenkins.erb"
-  owner "root"
-  group "root"
+  owner node['jenkins']['user']
+  group node['jenkins']['group']
   mode "0644"
   variables({
     :http_port => node['jenkins']['http_port']
@@ -28,8 +28,8 @@ end
 template "config" do
   path "/var/lib/jenkins/config.xml"
   source "config.xml.erb"
-  owner "root"
-  group "root"
+  owner node['jenkins']['user']
+  group node['jenkins']['group']
   mode "0644"
   variables({
     :java_name => node['jenkins']['java_name'],
@@ -38,8 +38,8 @@ template "config" do
 end
 
 template "/var/lib/jenkins/hudson.tasks.Maven.xml" do
-  owner "root"
-  group "root"
+  owner node['jenkins']['user']
+  group node['jenkins']['group']
   mode "0644"
   variables({
     :maven_name => node['jenkins']['maven_name'],

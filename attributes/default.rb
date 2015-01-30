@@ -15,14 +15,18 @@
 # limitations under the License.
 
 # default attributes
-default['jenkins']['jenkins_home'] = '/var/lib/jenkins'
-default['jenkins']['rpm'] = "jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['rpm_url'] = "http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['http_port'] = '8080'
-default['jenkins']['java_name'] = 'java'
-default['jenkins']['java_home'] = '/usr/lib/jvm/java'
-default['jenkins']['maven_name'] = 'maven'
-default['jenkins']['maven_home'] = '/opt/maven'
-default['jenkins']['plugins'] = [
+default['jenkins']['jenkins_home']  = '/var/lib/jenkins'
+default['jenkins']['log_directory'] = '/var/log/jenkins'
+default['jenkins']['rpm']           = "jenkins-1.597-1.1.noarch.rpm"
+default['jenkins']['rpm_url']       = "http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm"
+default['jenkins']['user']          = 'jenkins'
+default['jenkins']['group']         = 'jenkins'
+default['jenkins']['password']      = 'jenkins'
+default['jenkins']['http_port']     = '8080'
+default['jenkins']['java_name']     = 'java'
+default['jenkins']['java_home']     = '/usr/lib/jvm/java'
+default['jenkins']['maven_name']    = 'maven'
+default['jenkins']['maven_home']    = '/opt/maven'
+default['jenkins']['plugins']       = [
   "git"
 ]
