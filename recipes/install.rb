@@ -40,17 +40,17 @@ directory node['jenkins']['log_directory'] do
   recursive true
 end
 
-remote_file '/tmp/' + node['jenkins']['rpm'] do
+remote_file "#{Chef::Config[:file_cache_path]}/#{node['jenkins']['rpm']}" do
   source node['jenkins']['rpm_url']
   owner "root"
   group "root"
   mode "0755"
-  not_if "test -e " + '/tmp/' + node['jenkins']['rpm']
+  not_if "test -e #{Chef::Config[:file_cache_path]}/#{node['jenkins']['rpm']}"
 end
 
 package "jenkins" do
   action :install
-  source '/tmp/' + node['jenkins']['rpm']
+  source "#{Chef::Config[:file_cache_path]}/#{node['jenkins']['rpm']}"
   provider Chef::Provider::Package::Rpm
   not_if "rpm -q jenkins"
 end

@@ -18,9 +18,9 @@ JENKINS_URL = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins"
 
 # Install Plugins
 node['jenkins']['plugins'].each do |plugin_name|
-  execute "install-jenkins-plugin-" + plugin_name do
+  execute "install-jenkins-plugin-#{plugin_name}" do
     user "root"
-    command "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} install-plugin " + plugin_name
+    command "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} install-plugin #{plugin_name}"
     action :run
     not_if "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} list-plugins | awk '{print $1}' | grep ^#{plugin_name}$"
     notifies :run, "execute[jenkins-safe-restart]"
@@ -31,4 +31,3 @@ execute "jenkins-safe-restart" do
   command "java -jar /tmp/jenkins-cli.jar -s #{JENKINS_URL} safe-restart"
   action :nothing
 end
-
