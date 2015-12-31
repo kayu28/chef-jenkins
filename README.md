@@ -1,4 +1,4 @@
-# jenkins Cookbook for CentOS
+# jenkins Cookbook
 
 [![Build Status](https://travis-ci.org/kayu28/chef-jenkins.svg?branch=master)](https://travis-ci.org/kayu28/chef-jenkins)
 
@@ -9,6 +9,7 @@ Requirements
 
 #### platforms
 - `CentOS` - tested on CentOS 6.5
+- `Amazon` - tested on Amazon Linux AMI 2015.09.1
 
 Attributes
 ----------
@@ -31,14 +32,9 @@ Attributes
     <td><tt>/var/log/jenkins</tt></td>
   </tr>
   <tr>
-    <td><tt>['jenkins']['rpm']</tt></td>
+    <td><tt>['jenkins']['version']</tt></td>
     <td>String</td>
-    <td><tt>jenkins-1.597-1.1.noarch.rpm</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['jenkins']['rpm_url']</tt></td>
-    <td>String</td>
-    <td><tt>http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm</tt></td>
+    <td><tt>1.643</tt></td>
   </tr>
   <tr>
     <td><tt>['jenkins']['http_port']</tt></td>

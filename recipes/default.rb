@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe 'java'
-
 include_recipe 'jenkins::install'
 include_recipe 'jenkins::configure'
 include_recipe 'jenkins::service'

@@ -17,8 +17,7 @@
 # default attributes
 default['jenkins']['jenkins_home']  = '/var/lib/jenkins'
 default['jenkins']['log_directory'] = '/var/log/jenkins'
-default['jenkins']['rpm']           = "jenkins-1.597-1.1.noarch.rpm"
-default['jenkins']['rpm_url']       = "http://pkg.jenkins-ci.org/redhat/jenkins-1.597-1.1.noarch.rpm"
+default['jenkins']['version']       = '1.643'
 default['jenkins']['user']          = 'jenkins'
 default['jenkins']['group']         = 'jenkins'
 default['jenkins']['password']      = 'jenkins'
