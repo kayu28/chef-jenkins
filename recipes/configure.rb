@@ -33,7 +33,8 @@ template "config" do
   mode "0644"
   variables({
     :java_name => node['jenkins']['java_name'],
-    :java_home => node['jenkins']['java_home']
+    :java_home => node['jenkins']['java_home'],
+    :version => node['jenkins']['version']
   })
 end
 
