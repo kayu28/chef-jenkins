@@ -44,16 +44,6 @@ Attributes
   git
 ]</tt></td>
   </tr>
-  <tr>
-    <td><tt>['jenkins']['java_home']</tt></td>
-    <td>String</td>
-    <td><tt>/usr/lib/jvm/java</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['jenkins']['maven_home']</tt></td>
-    <td>String</td>
-    <td><tt>/opt/maven</tt></td>
-  </tr>
 </table>
 
 Usage
