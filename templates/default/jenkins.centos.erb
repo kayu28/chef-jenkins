@@ -43,7 +43,7 @@ JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true"
 # Port Jenkins is listening on.
 # Set to -1 to disable
 #
-JENKINS_PORT="<%= @http_port %>"
+JENKINS_PORT="<%= node['jenkins']['http_port'] %>"
 
 ## Type:        string
 ## Default:     ""
@@ -130,4 +130,4 @@ JENKINS_HANDLER_IDLE="20"
 # Pass arbitrary arguments to Jenkins.
 # Full option list: java -jar jenkins.war --help
 #
-JENKINS_ARGS="--prefix=/jenkins --httpPort=<%= @http_port %>"
+JENKINS_ARGS="--prefix=/jenkins --httpPort=$JENKINS_PORT"

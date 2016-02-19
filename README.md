@@ -10,6 +10,7 @@ Requirements
 #### platforms
 - `CentOS` - tested on CentOS 6.5
 - `Amazon` - tested on Amazon Linux AMI 2015.09.1
+- `Ubuntu` - tested on ubuntu 14.04
 
 Attributes
 ----------
@@ -30,11 +31,6 @@ Attributes
     <td><tt>['jenkins']['log_directory']</tt></td>
     <td>String</td>
     <td><tt>/var/log/jenkins</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['jenkins']['version']</tt></td>
-    <td>String</td>
-    <td><tt>1.643</tt></td>
   </tr>
   <tr>
     <td><tt>['jenkins']['http_port']</tt></td>

@@ -15,36 +15,10 @@
 # limitations under the License.
 
 template "jenkins" do
-  path "/etc/sysconfig/jenkins"
-  source "jenkins.erb"
+  path node['jenkins']['config_path']
+  source 'jenkins.' + node['platform'] + '.erb'
   owner node['jenkins']['user']
   group node['jenkins']['group']
   mode "0644"
-  variables({
-    :http_port => node['jenkins']['http_port']
-  })
+  notifies :reload, 'service[jenkins]'
 end
-
-template "config" do
-  path "/var/lib/jenkins/config.xml"
-  source "config.xml.erb"
-  owner node['jenkins']['user']
-  group node['jenkins']['group']
-  mode "0644"
-  variables({
-    :java_name => node['jenkins']['java_name'],
-    :java_home => node['jenkins']['java_home'],
-    :version => node['jenkins']['version']
-  })
-end
-
-template "/var/lib/jenkins/hudson.tasks.Maven.xml" do
-  owner node['jenkins']['user']
-  group node['jenkins']['group']
-  mode "0644"
-  variables({
-    :maven_name => node['jenkins']['maven_name'],
-    :maven_home => node['jenkins']['maven_home']
-  })
-end
-

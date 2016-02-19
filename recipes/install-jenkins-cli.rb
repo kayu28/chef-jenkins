@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-JENKINS_URL = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins"
+jenkins_url = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins/"
 
 script "install-jenkins-cli" do
   interpreter "bash"
@@ -25,11 +25,10 @@ script "install-jenkins-cli" do
     http_response_code=503
     while [ $http_response_code -ne 200 ]
     do
-      http_response_code=`curl -LI #{JENKINS_URL}/jnlpJars/jenkins-cli.jar -o /dev/null -w '%{http_code}' -s`
+      http_response_code=`curl -LI #{jenkins_url}jnlpJars/jenkins-cli.jar -o /dev/null -w '%{http_code}' -s`
       echo $http_response_code
       sleep 5
     done
-    wget -t 5 --waitretry 5 -O /tmp/jenkins-cli.jar #{JENKINS_URL}/jnlpJars/jenkins-cli.jar
+    wget -t 5 --waitretry 5 -O /tmp/jenkins-cli.jar #{jenkins_url}jnlpJars/jenkins-cli.jar
   EOH
 end
-

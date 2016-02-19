@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version><%= @version %></version>
+  <version><%= node['jenkins']['version'] %></version>
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -11,13 +11,15 @@
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <% if node['jenkins']['jdk_home'] %>
   <jdks>
     <jdk>
-      <name><%= @java_name %></name>
-      <home><%= @java_home %></home>
+      <name><%= node['jenkins']['jdk_name'] %></name>
+      <home><%= node['jenkins']['jdk_home'] %></home>
       <properties/>
     </jdk>
   </jdks>
+  <% end %>
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>

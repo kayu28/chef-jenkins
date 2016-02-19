@@ -15,17 +15,27 @@
 # limitations under the License.
 
 # default attributes
-default['jenkins']['jenkins_home']  = '/var/lib/jenkins'
-default['jenkins']['log_directory'] = '/var/log/jenkins'
-default['jenkins']['version']       = '1.643'
+default['jenkins']['repository']    = case node['platform_family']
+                                      when 'debian' then 'http://pkg.jenkins-ci.org/debian'
+                                      when 'rhel' then 'http://pkg.jenkins-ci.org/redhat'
+                                      end
+default['jenkins']['key']           = node['jenkins']['repository'] + '/jenkins-ci.org.key'
+default['jenkins']['config_path']   = case node['platform_family']
+                                      when 'debian' then '/etc/default/jenkins'
+                                      when 'rhel' then '/etc/sysconfig/jenkins'
+                                      end
+
 default['jenkins']['user']          = 'jenkins'
 default['jenkins']['group']         = 'jenkins'
-default['jenkins']['password']      = 'jenkins'
 default['jenkins']['http_port']     = '8080'
-default['jenkins']['java_name']     = 'java'
-default['jenkins']['java_home']     = '/usr/lib/jvm/java'
-default['jenkins']['maven_name']    = 'maven'
-default['jenkins']['maven_home']    = '/opt/maven'
+
+default['jenkins']['jenkins_home']  = '/var/lib/jenkins'
+default['jenkins']['log_directory'] = '/var/log/jenkins'
+
+default['jenkins']['jdk_name']      = nil
+default['jenkins']['jdk_home']      = nil
+default['jenkins']['maven_name']    = nil
+default['jenkins']['maven_home']    = nil
 default['jenkins']['plugins']       = [
   "git"
 ]

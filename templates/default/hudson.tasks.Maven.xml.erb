@@ -2,8 +2,8 @@
 <hudson.tasks.Maven_-DescriptorImpl>
   <installations>
     <hudson.tasks.Maven_-MavenInstallation>
-      <name><%= @maven_name %></name>
-      <home><%= @maven_home %></home>
+      <name><%= node['jenkins']['maven_name'] %></name>
+      <home><%= node['jenkins']['maven_home'] %></home>
       <properties/>
     </hudson.tasks.Maven_-MavenInstallation>
   </installations>
