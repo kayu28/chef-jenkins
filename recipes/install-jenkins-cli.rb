@@ -17,6 +17,7 @@
 jenkins_url = "http://localhost:" + node['jenkins']['http_port'] + "/jenkins/"
 
 script "install-jenkins-cli" do
+  action :nothing
   interpreter "bash"
   user "root"
   cwd "/tmp"
@@ -31,4 +32,24 @@ script "install-jenkins-cli" do
     done
     wget -t 5 --waitretry 5 -O /tmp/jenkins-cli.jar #{jenkins_url}jnlpJars/jenkins-cli.jar
   EOH
+end
+
+script "update-jenkins-updatecenter" do
+  action :nothing
+  interpreter "bash"
+  user "jenkins"
+  cwd "/tmp"
+  code <<-EOH
+    curl -L http://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
+  EOH
+  not_if "test -e /var/lib/jenkins/updates/default.json"
+end
+
+directory "/var/lib/jenkins/updates" do
+  owner "jenkins"
+  group "jenkins"
+  mode "0755"
+  action :create
+  notifies :run, "script[install-jenkins-cli]", :immediately
+  notifies :run, "script[update-jenkins-updatecenter]", :immediately
 end

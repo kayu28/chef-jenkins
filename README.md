@@ -8,6 +8,7 @@ Requirements
 ------------
 
 #### platforms
+- `RedHat` - tested on Red Hat Enterprise Linux 7.2
 - `CentOS` - tested on CentOS 6.5
 - `Amazon` - tested on Amazon Linux AMI 2015.09.1
 - `Ubuntu` - tested on ubuntu 14.04

@@ -15,9 +15,5 @@
 # limitations under the License.
 
 include_recipe 'jenkins::install'
-include_recipe 'jenkins::configure'
-include_recipe 'jenkins::service'
 include_recipe 'jenkins::install-jenkins-cli'
-include_recipe 'jenkins::configure-admin'
-include_recipe 'jenkins::update-jenkins-updatecenter'
 include_recipe 'jenkins::install-plugins'

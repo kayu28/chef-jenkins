@@ -25,6 +25,7 @@ default['jenkins']['config_path']   = case node['platform_family']
                                       when 'rhel' then '/etc/sysconfig/jenkins'
                                       end
 
+default['jenkins']['version']       = '1.658-1.1'
 default['jenkins']['user']          = 'jenkins'
 default['jenkins']['group']         = 'jenkins'
 default['jenkins']['http_port']     = '8080'
@@ -32,10 +33,26 @@ default['jenkins']['http_port']     = '8080'
 default['jenkins']['jenkins_home']  = '/var/lib/jenkins'
 default['jenkins']['log_directory'] = '/var/log/jenkins'
 
-default['jenkins']['jdk_name']      = nil
-default['jenkins']['jdk_home']      = nil
-default['jenkins']['maven_name']    = nil
-default['jenkins']['maven_home']    = nil
 default['jenkins']['plugins']       = [
-  "git"
+  "git",
+  "pmd",
+  "checkstyle",
+  "cobertura",
+  "findBugs",
+  "javadoc",
+  "github-api",
+  "github",
+  "tasks",
+  "warnings",
+  "timestamper",
+  "jobConfigHistory",
+  "build-flow-plugin",
+  "build-pipeline-plugin",
+  "saferestart",
+  "discard-old-build",
+  "javancss",
+  "websphere-deployer",
+  "jenkins-cloudformation-plugin",
+  "cloudfoundry",
+  "mask-passwords"
 ]

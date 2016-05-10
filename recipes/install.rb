@@ -21,10 +21,9 @@ when 'debian'
   end
 end
 
-# include_recipe 'apt'
-
 case node['platform_family']
 when 'debian'
+  include_recipe 'apt::default'
   apt_repository 'jenkins' do
     uri node['jenkins']['repository']
     key node['jenkins']['key']
@@ -32,9 +31,10 @@ when 'debian'
     action :add
   end
 when 'rhel'
-  yum_repository 'jenkins.repo' do
-    baseurl node['jenkins']['repository']
+  include_recipe 'yum::default'
+  yum_repository 'jenkins-repo' do
     description 'jenkins'
+    baseurl node['jenkins']['repository']
     gpgkey node['jenkins']['key']
     action :create
   end
@@ -42,6 +42,20 @@ end
 
 # install jenkins.
 package "jenkins" do
+  version node['jenkins']['version']
   action :install
 end
 
+template "jenkins" do
+  path node['jenkins']['config_path']
+  source 'jenkins.' + node['platform'] + '.erb'
+  owner node['jenkins']['user']
+  group node['jenkins']['group']
+  mode "0644"
+  notifies :restart, 'service[jenkins]', :immediately
+end
+
+service "jenkins" do
+  supports status: true, restart: true, reload: true
+  action [:enable, :start]
+end
