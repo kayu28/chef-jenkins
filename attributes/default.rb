@@ -54,5 +54,6 @@ default['jenkins']['plugins']       = [
   "websphere-deployer",
   "jenkins-cloudformation-plugin",
   "cloudfoundry",
-  "mask-passwords"
+  "mask-passwords",
+  "xvfb"
 ]
