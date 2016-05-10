@@ -24,6 +24,11 @@ Attributes
     <th>Default</th>
   </tr>
   <tr>
+    <td><tt>['jenkins']['version']</tt></td>
+    <td>String</td>
+    <td><tt>1.658-1.1</tt></td>
+  </tr>
+  <tr>
     <td><tt>['jenkins']['jenkins_home']</tt></td>
     <td>String</td>
     <td><tt>/var/lib/jenkins</tt></td>
@@ -42,7 +47,7 @@ Attributes
     <td><tt>['jenkins']['plugins']</tt></td>
     <td>Array</td>
     <td><tt>%w[
-  git
+  git,pmd,checkstyle,cobertura,findBugs and more...
 ]</tt></td>
   </tr>
 </table>
